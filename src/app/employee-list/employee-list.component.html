@@ -1,0 +1,132 @@
+<div class=" max-w-7xl container mx-auto px-4">
+    <h1 class=" text-center text-5xl font-bold mt-7 mb-10 text-indigo-500"> Employee List </h1>
+    <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label for="newEmployeeId" class="block text-gray-700 text-sm font-bold mb-2">ID</label>
+            <input [(ngModel)]="newEmployeeId" placeholder="ID" type="number"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeAge" class="block text-gray-700 text-sm font-bold mb-2">Age</label>
+            <input [(ngModel)]="newEmployeeAge" placeholder="Age" type="number"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeEmail" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+            <input [(ngModel)]="newEmployeeEmail" placeholder="Email" class="p-2 border w-full border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeSalary" class="block text-gray-700 text-sm font-bold mb-2">Salary</label>
+            <input [(ngModel)]="newEmployeeSalary" placeholder="Salary" type="number"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeAddress" class="block text-gray-700 text-sm font-bold mb-2">Address</label>
+            <input [(ngModel)]="newEmployeeAddress" placeholder="Address"
+                class=" w-full p-2 border border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeLastName" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
+            <input [(ngModel)]="newEmployeeLastName" placeholder="Last Name"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+        <div>
+            <label for="newEmployeeFirstName" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+            <input [(ngModel)]="newEmployeeFirstName" placeholder="First Name"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+
+        <div>
+            <label for="newEmployeeContactNumber" class="block text-gray-700 text-sm font-bold mb-2">Contact
+                Number</label>
+            <input [(ngModel)]="newEmployeeContactNumber" placeholder="Contact Number"
+                class="p-2 border w-full border-gray-300 rounded">
+        </div>
+
+    </div>
+    <button (click)="addEmployee()" [disabled]="!isFormValid()" class="bg-indigo-500 mb-7 border border-indigo-500 
+         hover:bg-white hover:text-indigo-500 text-white px-5 py-2 rounded-md"
+        [ngClass]="isFormValid() ? 'bg-indigo-500 text-white hover:bg-white hover:text-indigo-500' : 'bg-gray-300 border-gray-300 cursor-not-allowed'">
+        <i class="fas fa-plus mr-2"></i> Add Employee</button>
+    <div class=" w-full mx-auto text-center">
+        <div class="flex sm:w-1/2 w-full mx-auto mb-10 text-center bg-[#fff] rounded-full border border-[#D9D9D9]">
+            <input type="text" [(ngModel)]="searchTerm" (input)="filterEmployees()" placeholder="Search Employee..."
+                class=" w-full  bg-transparent focus:outline-none focus-visible:none px-5 pt-3 pb-3">
+            <button aria-label="search recipe" class="bg-[#D9D9D9] rounded-3xl pl-2"><svg stroke="currentColor"
+                    fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                    class=" font-extralight text-[#000] text-3xl mr-2" height="1em" width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"></path>
+                </svg></button>
+        </div>
+    </div>
+
+    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+        <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th (click)="sortEmployees('id')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                ID</th>
+                            <th (click)="sortEmployees('firstName')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                First Name</th>
+                            <th (click)="sortEmployees('lastName')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Last Name</th>
+                            <th (click)="sortEmployees('age')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Age</th>
+                            <th (click)="sortEmployees('email')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Email</th>
+                            <th (click)="sortEmployees('salary')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Salary</th>
+                            <th (click)="sortEmployees('address')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Address</th>
+                            <th (click)="sortEmployees('contactNumber')"
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Contact Number</th>
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let employee of filteredEmployees | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.id }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.firstName }}
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.lastName }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.age }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.email }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.salary }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.address }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ employee.contactNumber }}
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <button (click)="deleteEmployee(i)" class=" p-1 rounded">
+                                    <i class=" text-lg text-red-500 fas fa-trash mr-2"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class=" mt-8 mb-8 text-end">
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+    </div>
+
+
+
+</div>
